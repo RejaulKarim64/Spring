@@ -9,7 +9,7 @@ public class JulySixteenApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JulySixteenApplication.class, args);
 
-		System.out.println("hello");
+		System.out.println("hello world how are you");
 	}
 
 }

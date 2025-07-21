@@ -8,6 +8,7 @@ class JulySixteenApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Hello World how are you");
 	}
 
 }
