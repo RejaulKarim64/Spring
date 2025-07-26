@@ -34,6 +34,7 @@ public class UserService {
             user.setPhoto(fileName);
         }
 
+
         userRepo.save(user);
         sendActivationEmail(user);
     }
