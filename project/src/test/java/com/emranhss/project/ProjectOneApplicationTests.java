@@ -1,14 +1,13 @@
-package com.emranhss.julysixteen;
+package com.emranhss.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JulySixteenApplicationTests {
+class ProjectOneApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println("Hello World how are you");
 	}
 
 }
