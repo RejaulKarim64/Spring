@@ -1,0 +1,496 @@
+1. Manipulating Java objects at runtime in Spring
+a) Weaving — Weaving (via AspectJ) modifies bytecode at runtime or compile time to allow runtime behavior changes. SPEL is an expression language, RPC is remote call, and JCP is unrelated.
+
+2. How many ways Inversion of Control is executed?
+d) Both a & b — IoC is implemented via Dependency Lookup and Dependency Injection.
+
+3. Core concepts of AOP
+d) All of the above — JoinPoints, Advice, and Pointcuts are all fundamental AOP concepts.
+
+4. Purpose of interfaces
+d) All of the above — Interfaces help loose coupling, reduce coupling, and remove coupling.
+
+5. DTO stands for
+b) Data Transfer Objects — DTO is the standard abbreviation.
+
+6. Why use named parameters?
+a) Callable Statements — Named parameters are typically used in CallableStatements (especially for stored procedures).
+
+7. Ways to configure Spring dependency (choose two)
+e) Both A & D — You can configure dependencies externally in XML or via Java annotations.
+
+8. Transaction, AOP, message source i18n, event handling are provided by
+c) ApplicationContext — All these features are supported by ApplicationContext.
+
+9. Destruction method in Spring bean config
+b) destroy-method attribute — The bean XML “destroy‑method” attribute declares the destruction method.
+
+10. When are Dependency Injections executed?
+c) Run time — DI occurs at application runtime when wiring beans.
+
+11. Role of Factory Pattern
+b) To provide application initiated object — The Factory supplies object creation; (a) is more Spring's context itself.
+
+12. JdbcTemplate benefits
+b) It is not necessary to manage connections in the application code — JdbcTemplate handles resource management. You still write SQL, so a) and c/d are incorrect.
+
+13. ORM libraries include
+d) Above all — Hibernate, TopLink, JDO are all ORM libraries.
+
+14. Types of IoC containers
+e) Both A & C — BeanFactory and ApplicationContext are both IoC container types.
+
+15. Shutdown bean processes after closing container
+c) shutdownHook — registerShutdownHook (internally using shutdownHook) ensures graceful shutdown at JVM exit.
+
+16. Bean class attributes
+d) all of the above — name, id, and class are standard bean attributes.
+
+17. IoC subtypes decomposed into
+d) Both A & C — Dependency Lookup and Dependency Injection are the two subtypes.
+
+18. Objective of AOP
+d) Crosscutting logic — AOP focuses on cross‑cutting concerns such as logging, security, transactions.
+
+19. Advantages of Dependency Injection
+c) Both a and b — DI promotes loose coupling (easier to maintain) and easier testability.
+
+20. Component intercepts all Spring MVC requests
+a) DispatcherServlet — It’s the front controller in Spring MVC.
+
+21. Method used to process beans via BeanPostProcessor
+a) postProcessAfterInitialization() — or postProcessBeforeInitialization(); question asks which is used to process bean (typically After).
+
+22. Meaning of Inversion of Control
+b) IOC externalizes the creation or management of component dependencies — IoC transfers control to an external framework/container.
+
+23. Array method returning true if contains value
+d) includes(value) — In JavaScript, includes() checks presence.
+
+24. Convert numbers to strings with the _____ method
+b) toString — .toString() is standard.
+
+25. Limitation of traditional factory pattern
+a) Single implementation — Traditional simple factory ties to a fixed implementation, lacking flexibility.
+
+26. Relationship of ApplicationContext and BeanFactory
+a) ApplicationContext extends BeanFactory — In Spring, ApplicationContext is a subinterface of BeanFactory.
+
+27. Keyword to define constant
+a) final — In Java, final declares a constant value.
+
+28. Not Spring module JAR file
+c) primeface — PrimeFaces is a JSF UI component library, not part of Spring modules.
+
+29. Core layer for business logic
+b) service layer — The service layer contains core application/business logic.
+
+30. Using named parameters is preferred due to
+d) improved code maintainability — Named parameters improve readability and maintainability.
+
+31. LocalSessionFactoryBean configuration supports
+d) All above — Scanning packages, listing annotated entity classes, listing hbm.xml mappings.
+
+32. ORM frameworks include
+d) All are above — Hibernate, EclipseLink/TopLink, OpenJPA are all ORM.
+
+33. What is BeanFactory?
+a) An Interface — BeanFactory is a core interface in Spring.
+
+34. Why design to interfaces?
+d) All of the above — Interfaces bring loose, reduced, and removed coupling.
+
+35. Data access technology supported by Spring
+d) Above a, b, c — Spring supports JDBC, Hibernate, JPA.
+
+36. Responsible for getting connection to database
+d) Connection — Connection object represents a DB connection.
+
+37. Valid return types of Spring MVC controller method
+d) A & C — Void or ModelAndView are valid return types.
+
+38. Meaning of @Entity
+c) mapped entity class — Annotates a Java class that maps to a database table.
+
+39. In Spring Web Flow, a series of steps is called
+c) States — Each step in a flow is defined as a State.
+
+40. Advantages of DI over traditional approach
+e) All of the above — Reduced glue code, simplified configuration, manage common dependencies, improved testability.
+
+41. Default scope of bean
+b) Singleton — Spring beans default to singleton scope.
+
+42. Main benefit of using DataSource
+a) Use of connection pool to fetch database connection — DataSource enables pooling.
+
+43. Supported formatting by Spring
+d) Above all — CurrencyFormatter, DateFormatter, NumberFormatter are supported.
+
+44. Drawbacks of Basic Factory Pattern
+d) Both A and B — No way to change implementing class or switch instantiation without recompiling.
+
+45. Ways to inject dependency (choose two)
+e) Both A & B — By constructor and by setter method.
+
+46. AOP implements
+a) Crosscutting logic — Main feature is crosscutting concern implementation.
+
+47. Alternative to Spring HibernateTemplate
+a) Hibernate contextual sessions — Use Hibernate’s SessionFactory contextual sessions instead of HibernateTemplate.
+
+48. Layer for @Controller annotation
+d) Presentation layer — Controllers handle web requests in the presentation layer.
+
+49. IoC decomposed into two subtypes
+d) A & B — Dependency Injection and Dependency Lookup.
+
+50. DispatcherServlet meaning
+b) DispatcherServlet handles all HTTP requests and responses — It routes web requests to handlers.
+
+51. Hibernate covers defining _____ mappings
+a) ORM — Object‑relational mappings.
+
+52. Persistent object stored as database record
+c) Persistence Entity — An entity representing database table row.
+
+53. Why use JdbcTemplate?
+b) It saves a lot of work and time. — It simplifies JDBC programming.
+(Option a is partially correct but you still write SQL.)
+
+54. Method returning list of maps
+b) queryForList() — Returns List<Map<String,Object>> result.
+
+55. Order to close DB resources
+c) ResultSet then Statement then Connection — That’s the correct closing order.
+
+56. Notify session completion
+b) SessionStatus — Used in Spring MVC form controllers and WebFlow.
+
+57. Method to delete data in JPA EntityManager
+a) EntityManager.remove()
+
+58. What kind of framework is Spring?
+a) A lightweight framework
+
+59. Core principle of Spring
+c) IOC — Inversion of Control is Spring’s core fingerprint.
+
+60. Class that maintains Hibernate’s SessionFactory for Spring
+a) ApplicationContext — It handles SessionFactory via bean configuration.
+
+61. JdbcTemplate batch update method
+a) batchUpdate() — Offers batch SQL operation support.
+
+62. ApplicationContext is a
+c) Interface — It’s the container interface subtyping BeanFactory.
+
+63. SimpleJdbcTemplate batch update takes what form?
+b) List
+
+64. jQuery is popular for
+c) Web fronted — jQuery is a JavaScript library for web front‑end.
+
+65. Annotation for Hibernate exceptions
+b) @Repository — Marks DAO and enables exception translation.
+
+66. Interface used by JdbcTemplate to map a resultset row
+d) RowMapper
+
+67. CRUD means
+b) Create, Read, Update, Delete
+
+68. Objective of Spring DI
+d) All of the above — Easier to test, simpler, clearer.
+
+69. Module providing basic web-oriented integration
+a) Web‑MVC module
+
+70. POJO stands for
+a) Plain Old Java Object
+
+71. Default validator in Spring
+c) Hibernate validator (Bean Validation API, implemented via Hibernate Validator)
+
+72. JdbcDaoSupport wraps which class
+a) JdbcTemplate
+
+73. Default @RequestMapping
+a) GET — If unspecified, GET is default.
+
+74. Exception class for Spring exceptions
+b) DataAccessException
+
+75. Transforming JavaBeans into XML
+a) Marshaling (Unmarshaling is the reverse)
+
+76. Spring Web Flow features include
+d) All of the above — Flow, View, Conversation are features.
+
+77. Which method returns row?
+a) mapRow() — RowMapper’s method used when mapping result set rows.
+
+78. Ways to configure ApplicationContext
+d) A & C — XML‑based and Annotation‑based are supported.
+
+79. Purpose of validation
+d) All — Ensures business requirements, data integrity, and reusability across layers.
+
+80. Objective of validation
+d) All of the above
+
+81. Annotation for Controller class
+d) @Controller
+
+82. Publishing a REST service with Spring involves
+c) all of the mentioned — Publishing, consuming third‑party REST, etc.
+
+83. Method returning JDBC template
+c) getJdbcTemplate()
+
+84. Repository used in Spring
+a) JPA — Typically @Repository with Spring Data JPA.
+
+85. Statements true for Spring beans
+d) All of the above — POJOs, managed by IoC container, instantiated & assembled by it.
+
+86. JPQL is similar to
+b) HQL — Java Persistence Query Language is akin to Hibernate Query Language.
+
+87. Main advantage of DAO pattern
+b) It hides database-specific implementation from other layers.
+
+88. Component for request mapping
+a) RequestMapper (Note: though Spring uses HandlerMapping, among choices RequestMapper fits.)
+
+89. Technique that externalizes dependencies
+c) IoC
+
+90. Spring MVC central servlet
+a) DispatcherServlet
+
+91. File for configuring DB and entity classes
+c) Persistence.xml — JPA config file.
+
+92. HQL stands for
+c) Hibernate Query Language
+
+93. Annotation for transaction
+a) @Transactional
+
+94. How to return contextual sessions
+c) getCurrentSession() method
+
+95. Bean scopes available in web app
+d) Above all — Request, Session, Application scopes are all available.
+
+96. Correct SQL resultset mapping annotation
+a) @SqlResultSetMapping
+
+97. Handling IoC container shutdown
+b) Using registerShutdownHook() — Ensures container shutdown at JVM exit.
+
+98. Class in Spring JDBC module
+a) JdbcDaoSupport
+
+99. Responsible for getting DB connection
+d) Connection
+
+100. Annotation for EJB entity manager injection
+c) @PersistenceContext
+
+101. Spring Web Flow features
+d) All of the above
+
+102. Class maintaining Hibernate session factory in Spring
+a) Application context
+
+103. Main benefit of DataSource
+a) Enables connection pooling
+
+104. Method used for processing a bean
+a) postProcessAfterInitialization()
+
+105. Where to configure DispatcherServlet
+b) Web‑inf/dispatcher.xml — Common location for Spring MVC config.
+
+106. Returning contextual sessions
+c) getCurrentSession() method
+
+107. IoC container types
+e) Both A & C — BeanFactory and ApplicationContext.
+
+108. Supported Spring format types
+d) Above all — Currency, Date, Number formatters.
+
+109. Bean scopes available in web app
+d) Above all
+
+110. Ways to configure Spring dependency (choose two)
+e) Both A & D — XML and Java annotations.
+
+111. Purpose of Named parameters
+a) Callable Statements
+
+112. Method that returns a row
+a) mapRow()
+
+113. Annotation for Controller class
+d) @Controller
+
+114. Method returning JDBC template
+c) getJdbcTemplate()
+
+115. CRUD stands for
+b) Create, Read, Update, Delete
+
+116. DTO stands for
+b) Data Transfer Objects
+
+117. Layer for @Controller annotation
+d) Presentation layer
+
+118. In Spring Web Flow, a flow consists of a series of steps called
+c) States
+
+119. IoC execution ways
+d) Both a & b
+
+120. Correct statements for Spring beans
+d) All of the above
+
+121. Core concepts of AOP
+d) All of the above
+
+122. Named parameters are preferred due to
+d) improved code maintainability
+
+123 (first). Publish a REST service with Spring
+c) all of the mentioned
+
+123 (second duplicate). Annotation for Hibernate exceptions
+b) @Repository
+
+124. Repository in Spring
+a) JPA
+
+125. Ways to configure ApplicationContext
+d) A & C
+
+126. Correct related to JdbcTemplate
+b) It is not necessary to manage connections in the application code
+
+127. Order to close DB resources
+c) ResultSet then Statement then Connection
+
+128. Why use JdbcTemplate?
+b) It saves a lot of work and time.
+
+129. Meaning of IoC
+b) IoC externalizes dependencies creation/management
+
+130. Annotation for transaction
+a) @Transactional
+
+131 (first). True statement about ApplicationContext and BeanFactory
+a) ApplicationContext extends BeanFactory
+
+131 (second). Transaction, AOP, message source, events provider
+c) ApplicationContext
+
+132. Default @RequestMapping
+a) GET
+
+133. Purpose of Named Parameters
+a) Prepared Statements (Note: named parameters often used in JDBC or Callable; best mapping here)
+
+134. Correct SQL resultset mapping annotation
+a) @SqlResultSetMapping
+
+135. ORM frameworks include
+d) All are above
+
+136. Destruction method
+init‑method attribute is the builder, destroy‑method attribute is destruction. But among options:
+b) destroy method typically maps to destroy‑method attribute.
+
+137. Spring JDBC class belongs to
+a) JdbcDaoSupport
+
+139. Module for web-oriented integration
+a) Web‑MVC module
+
+140. Same as Q1, weaving is correct
+a) Weaving
+
+141. DI executed at
+c) Run time
+
+142. Advantage of DAO pattern
+b) Hides DB-specific implementation
+
+143. Alternative to HibernateTemplate
+a) Hibernate contextual sessions
+
+144. Destruction method variant
+c) init‑method attribute (same as Q9 but variant), or destroy‑method attribute; from listing: both init and destroy are possible destruction methods—destroy is correct destruction.
+
+145. Spring exception class
+b) DataAccessException
+
+146. Default bean scope
+b) Singleton
+
+147. Why design to interfaces?
+d) All of the above
+
+148. IoC subtypes
+d) A & B
+
+149. Limitation of factory pattern
+a) Single implementation
+
+150. JPQL is similar to
+b) HQL
+
+151. ORM libraries include
+d) Above all
+
+152. Meaning of @Entity
+c) mapped entity class
+
+153. SimpleJdbcTemplate batch update uses
+b) List
+
+154. JdbcTemplate batch update method
+a) batchUpdate()
+
+155. Spring JDBC module class
+a) JdbcDaoSupport
+
+156. Objective of DI
+d) All of the above
+
+157. Component for request mapping
+a) RequestMapper (closest to actual Spring HandlerMapping)
+
+158. File for configuring DB and registration of entities
+c) Persistence.xml
+
+159. Role of Factory Pattern
+b) To provide application initiated object
+
+160. Which class used for executing SQL queries?
+Jdbc Template (from options)
+
+161. Objective of validation
+d) All of the above
+
+162. Meaning of DispatcherServlet
+b) Handles all HTTP requests and responses
+
+164. Correct SQL resultset mapping annotation
+a) @SqlResultSetMapping
+
+165. What is ApplicationContext?
+c) Interface
