@@ -1,0 +1,19 @@
+<div class="container">
+
+    <div>
+<button><a href="add-jobseeker">add-jobseeker</a></button>
+    </div>
+    <div>
+<div *ngFor="let u of users">
+    <p>Name: {{u.name}}</p>
+    <p>Email: {{u.email}}</p>
+    <p>Phone: {{u.phone}}</p>
+    <p><img [src]="'http://localhost:8085/images/users/'+u.photo" height="150" width="150"></p>
+
+
+
+</div>
+    </div>
+</div>
+
+

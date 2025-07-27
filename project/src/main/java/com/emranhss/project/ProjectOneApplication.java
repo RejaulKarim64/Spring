@@ -1,5 +1,6 @@
 package com.emranhss.project;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,6 +8,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProjectOneApplication {
 
     public static void main(String[] args) {
+
+        // Load .env file using dotenv-java
+        Dotenv dotenv = Dotenv.configure()
+                .directory("./")
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
+
+        // Set properties so Spring can read them using ${...}
+        dotenv.entries().forEach(entry ->
+                System.setProperty(entry.getKey(), entry.getValue())
+        );
+
         SpringApplication.run(ProjectOneApplication.class, args);
 
 
