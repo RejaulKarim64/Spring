@@ -17,7 +17,7 @@ export class JobSeekerService {
     const formData: FormData = new FormData();
     formData.append('user', new Blob([JSON.stringify(user)]));
     formData.append('jobSeeker', new Blob([JSON.stringify(jobSeeker)]));
-    formData.append('photo', photo, photo.name); 
+    formData.append('photo', photo); 
 
     return this.http.post(this.baseUrl , formData);
   }

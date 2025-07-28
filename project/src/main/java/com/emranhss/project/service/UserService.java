@@ -27,7 +27,7 @@ public class UserService {
     private EmailService emailService;
 
     @Autowired
-    private JobSeekerService  jobSeekerService;
+    private JobSeekerService jobSeekerService;
 
     @Value("src/main/resources/static/images")
     private String uploadDir;
@@ -136,9 +136,9 @@ public class UserService {
             }
         }
         String jobSeekerName = jobSeeker.getName();
-        String fileName = jobSeekerName.trim().replaceAll("\\s+","_");
+        String fileName = jobSeekerName.trim().replaceAll("\\s+", "_");
 
-        String savedFileName = fileName + "_" + UUID.randomUUID().toString();
+        String savedFileName = fileName + "_" + UUID.randomUUID();
 
         try {
             Path filePath = uploadPath.resolve(savedFileName);
@@ -165,6 +165,6 @@ public class UserService {
 
         jobSeekerService.save(jobSeekerData);
 
-    sendActivationEmail(savedUser);
+        sendActivationEmail(savedUser);
     }
 }
