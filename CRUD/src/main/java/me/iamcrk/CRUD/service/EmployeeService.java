@@ -15,9 +15,19 @@ public class EmployeeService {
 
 
     public List<Employee> getAll() {
+
         return employeeRepo.findAll();
     }
-//    public String getById(Long id) {
-//        return employeeRepo.findById(id);
-//    }
+
+    public Employee getById(Long id) {
+        return employeeRepo.findById(id).orElse(null);
+    }
+
+    public Employee save(Employee employee) {
+        return employeeRepo.save(employee);
+    }
+
+    public void deleteById(Long id) {
+        employeeRepo.deleteById(id);
+    }
 }
