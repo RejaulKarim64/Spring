@@ -23,6 +23,7 @@ public class EmployeeController {
         return "home";
     }
 
+    //    http://localhost:8085/empForm
     @GetMapping("/empForm")
     public String empForm(Model model) {
         model.addAttribute("employee", new Employee());
@@ -51,6 +52,7 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "addEmployee";
     }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         employeeService.deleteById(id);
