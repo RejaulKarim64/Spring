@@ -13,13 +13,13 @@ export class JobSeekerService {
     private http: HttpClient
   ) { }
 
-  registerJobSeeker(user:any ,jobSeeker: any, photo: File): Observable<any> {
-    const formData: FormData = new FormData();
-    formData.append('user', new Blob([JSON.stringify(user)]));
-    formData.append('jobSeeker', new Blob([JSON.stringify(jobSeeker)]));
-    formData.append('photo', photo); 
+  registerJobSeeker(user: any, jobSeeker: any, photo: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('user', JSON.stringify(user));
+    formData.append('jobSeeker', JSON.stringify(jobSeeker));
+    formData.append('photo', photo);
 
-    return this.http.post(this.baseUrl , formData);
+    return this.http.post(this.baseUrl, formData);
   }
   
 }

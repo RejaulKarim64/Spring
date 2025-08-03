@@ -1,12 +1,23 @@
 package com.emranhss.project.service;
 
+import com.emranhss.project.dto.AuthenticationResponse;
 import com.emranhss.project.entity.JobSeeker;
 import com.emranhss.project.entity.Role;
+import com.emranhss.project.entity.Token;
 import com.emranhss.project.entity.User;
+import com.emranhss.project.jwt.JwtService;
+import com.emranhss.project.repository.ITokenRepository;
 import com.emranhss.project.repository.IUserRepo;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,14 +25,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     private IUserRepo userRepo;
+
+    @Autowired
+    private ITokenRepository tokenRepo;
 
     @Autowired
     private EmailService emailService;
@@ -29,8 +47,33 @@ public class UserService {
     @Autowired
     private JobSeekerService jobSeekerService;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    @Lazy
+    private AuthenticationManager authenticationManager;
+
     @Value("src/main/resources/static/images")
     private String uploadDir;
+
+    public UserService(PasswordEncoder passwordEncoder) {
+
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                new ArrayList<>()
+        );
+    }
+
 
     public void saveOrUpdate(User user, MultipartFile imageFile) {
         if (imageFile != null && !imageFile.isEmpty()) {
@@ -167,4 +210,64 @@ public class UserService {
 
         sendActivationEmail(savedUser);
     }
+
+
+    /// ///////////////
+    private void saveUserToken(String Jwt, User user) {
+        Token token = new Token();
+        token.setToken(Jwt);
+        token.setLogout(false);
+        token.setUser(user);
+
+        tokenRepo.save(token);
+
+    }
+
+    private void removeAllTokenByUser(User user) {
+        List<Token> validTokens = tokenRepo.findAllTokenByUser(user.getId());
+
+        if (validTokens.isEmpty()) {
+            return;
+        }
+        validTokens.forEach(t -> {
+            t.setLogout(true);
+        });
+        tokenRepo.saveAll(validTokens);
+    }
+
+    // It is Login Method
+    public AuthenticationResponse authenticate(User request) {
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+        User user = userRepo.findByEmail(request.getEmail()).orElseThrow();
+
+        String jwt = jwtService.generateToken(user);
+
+        removeAllTokenByUser(user);
+
+        saveUserToken(jwt, user);
+
+        return new AuthenticationResponse(jwt, "User Login Successful");
+    }
+
+    public String activeUser(int id) {
+
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not Found with this ID " + id));
+
+        if (user != null) {
+            user.setActive(true);
+            userRepo.save(user);
+            return "User Activated Successfully!";
+        } else {
+            return "Invalid Activation Token!";
+        }
+    }
+
+
 }

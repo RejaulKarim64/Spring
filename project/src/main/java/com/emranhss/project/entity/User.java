@@ -1,10 +1,16 @@
 package com.emranhss.project.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +26,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany
+    private List<Token> tokens;
+
+//    for user details-------------------------------
+    @Column(nullable = false)
+    private boolean active;
+    private boolean isLock;
+
+
     public User() {
     }
 
-    public User(int id, String name, String email, String phone, String password, String photo, Role role) {
+    public User(int id, String name, String email, String phone, String password, String photo, Role role, List<Token> tokens, boolean active, boolean isLock) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,6 +46,9 @@ public class User {
         this.password = password;
         this.photo = photo;
         this.role = role;
+        this.tokens = tokens;
+        this.active = active;
+        this.isLock = isLock;
     }
 
     public int getId() {
@@ -88,4 +106,63 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isLock() {
+        return isLock;
+    }
+
+    public void setLock(boolean Lock) {
+        isLock = Lock;
+    }
+
+
+//    implement spring methods
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isLock;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled();
+    }
+
+
 }
