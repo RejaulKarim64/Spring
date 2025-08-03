@@ -20,7 +20,7 @@ public class JwtService {
     @Autowired
     private ITokenRepository tokenRepository;
 
-    private final String SECURITY_KEY = "6SeHdW3EuWkwbT0PxoJJRt9YOH1uvppoz4C5uhmv0O3zF30YaD";
+    private final String SECURITY_KEY = "xIvb95DfOgkkHtPDZ7AnilQ8Ps53Knx1kpX94slsY84aSz1T";
 
     private Claims extractAllClaims(String token) {
 
