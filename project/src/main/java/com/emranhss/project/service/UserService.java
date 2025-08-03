@@ -64,14 +64,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        User user = userRepo.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                new ArrayList<>()
-        );
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 
 
@@ -102,6 +97,9 @@ public class UserService implements UserDetailsService {
     private void sendActivationEmail(User user) {
 
         String subject = "Welcome to Our Service – Confirm Your Registration";
+
+        String activationLink = "http://localhost:8085/api/user/active/" + user.getId();
+
         String mailText = "<!DOCTYPE html>"
                 + "<html>"
                 + "<body style='margin:0; padding:0; font-family:Arial, sans-serif; background-color:#f4f4f4;'>"
@@ -116,16 +114,19 @@ public class UserService implements UserDetailsService {
                 + "      </p>"
                 + "      <p style='font-size:15px; color:#555555; line-height:1.8;'>"
                 + "        Please confirm your email address to activate your account and get started."
+                + "      <p><a href=\"" + activationLink + "\">Activate Account</a></p>"
                 + "      </p>"
                 + "      <p style='font-size:15px; color:#555555; line-height:1.8;'>"
                 + "        If you have any questions or need assistance, our support team is here to help."
+
                 + "      </p>"
                 + "      <p style='font-size:15px; color:#555555; margin-top:30px;'>"
                 + "        Best regards,<br><span style='font-weight:bold;'>The Support Team</span>"
                 + "      </p>"
                 + "    </div>"
                 + "    <div style='background-color:#f0f0f0; padding:15px; text-align:center; font-size:13px; color:#999999;'>"
-                + "      &copy; " + java.time.Year.now() + " crk. All rights reserved."
+                + "      &copy; " + java.time.Year.now()
+                + " crk. All rights reserved."
                 + "    </div>"
                 + "  </div>"
                 + "</body>"
@@ -201,12 +202,16 @@ public class UserService implements UserDetailsService {
             user.setPhoto(fileName);
         }
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.JOBSEEKER);
+
         User savedUser = userRepo.save(user);
 
         jobSeekerData.setUser(savedUser);
-
         jobSeekerService.save(jobSeekerData);
+
+        String jwt = jwtService.generateToken(savedUser);
+        saveUserToken(jwt, savedUser);
 
         sendActivationEmail(savedUser);
     }
@@ -238,12 +243,7 @@ public class UserService implements UserDetailsService {
     // It is Login Method
     public AuthenticationResponse authenticate(User request) {
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         User user = userRepo.findByEmail(request.getEmail()).orElseThrow();
 
         String jwt = jwtService.generateToken(user);
@@ -257,8 +257,7 @@ public class UserService implements UserDetailsService {
 
     public String activeUser(int id) {
 
-        User user = userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not Found with this ID " + id));
+        User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not Found with this ID " + id));
 
         if (user != null) {
             user.setActive(true);

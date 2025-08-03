@@ -1,6 +1,7 @@
 package com.emranhss.project.restcontroller;
 
 
+import com.emranhss.project.dto.AuthenticationResponse;
 import com.emranhss.project.entity.User;
 import com.emranhss.project.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,20 +31,22 @@ public class UserRestController {
             @RequestParam(value = "photo") MultipartFile file)
 
             throws JsonProcessingException {
-                ObjectMapper objectMapper = new ObjectMapper();
-                User user = objectMapper.readValue(userJson, User.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        User user = objectMapper.readValue(userJson, User.class);
 
 
-        Map<String, String> response;
         try {
             userService.saveOrUpdate(user, file);
-            response = new HashMap<>();
+            Map<String, String> response = new HashMap<>();
             response.put("Message", "User saved successfully");
+
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {
+
             Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("Message", "User add Faild");
+            errorResponse.put("Message", "User add Faild" + e);
+
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -53,6 +56,18 @@ public class UserRestController {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
 
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody User request) {
+        return ResponseEntity.ok(userService.authenticate(request));
+
+    }
+
+    @GetMapping("active/{id}")
+    public ResponseEntity<String> activeUser(@PathVariable("id") int id) {
+        String response = userService.activeUser(id);
+        return ResponseEntity.ok(response);
     }
 
 

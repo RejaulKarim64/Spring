@@ -10,22 +10,20 @@ import { UserService } from '../../../../service/user-service';
   styleUrl: './add-jobseeker.css'
 })
 export class AddJobseeker {
-  userForm: FormGroup;
-  jobSeekerForm: FormGroup; 
-  photoFile !: File ;
+ userForm: FormGroup;
+  jobSeekerForm: FormGroup;
+  photoFile!: File;
   message: string = '';
 
-  constructor(
-    private fBuilder: FormBuilder,
-    private jobSeekerService: JobSeekerService
-  ) {
-    this.userForm =this.fBuilder.group({
-       name: ['', Validators.required],
+  constructor(private fb: FormBuilder, private jobseekerService: JobSeekerService) {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.jobSeekerForm = this.fBuilder.group({
+
+    this.jobSeekerForm = this.fb.group({
       gender: ['', Validators.required],
       address: ['', Validators.required],
       dateOfBirth: ['', Validators.required]
@@ -66,7 +64,7 @@ export class AddJobseeker {
       dateOfBirth: this.jobSeekerForm.value.dateOfBirth
     };
 
-    this.jobSeekerService.registerJobSeeker(user, jobSeeker, this.photoFile).subscribe({
+    this.jobseekerService.registerJobSeeker(user, jobSeeker, this.photoFile).subscribe({
       next: res => {
         this.message = res.Message || 'Registration successful!';
         this.userForm.reset();
@@ -78,5 +76,6 @@ export class AddJobseeker {
       }
     });
   }
+
 
 }
