@@ -1,6 +1,7 @@
 package com.emranhss.project.dto;
 
 public class AuthenticationResponse {
+
     private  String token;
     private String message;
 

@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -255,7 +254,12 @@ public class UserService implements UserDetailsService {
     // It is Login Method
     public AuthenticationResponse authenticate(User request) {
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
         User user = userRepo.findByEmail(request.getEmail()).orElseThrow();
 
         if (!user.isActive()) {

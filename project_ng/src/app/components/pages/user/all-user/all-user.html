@@ -1,20 +1,23 @@
 <div class="container">
 
     <div>
-<button class="btn btn-success my-4"><a href="add-jobseeker" style="text-decoration: none; color: #000;">add-jobseeker</a></button>
+        <button class="btn btn-success my-4">
+            <a href="add-jobseeker" style="text-decoration: none; color: #000;">add-jobseeker</a>
+        </button>
+        <button class="btn btn-success my-4 mx-5">
+            <a href="login" style="text-decoration: none; color: #000;">Login</a>
+        </button>
     </div>
     <div>
         <h3>User Details</h3>
-<div *ngFor="let u of users">
-    <p>Name: {{u.name}}</p>
-    <p>Email: {{u.email}}</p>
-    <p>Phone: {{u.phone}}</p>
-    <p><img [src]="'http://localhost:8085/images/users/'+u.photo" height="150" width="150"></p>
+        <div *ngFor="let u of users">
+            <p>Name: {{u.name}}</p>
+            <p>Email: {{u.email}}</p>
+            <p>Phone: {{u.phone}}</p>
+            <p><img [src]="'http://localhost:8085/images/users/'+u.photo" height="150" width="150"></p>
 
 
 
-</div>
+        </div>
     </div>
 </div>
-
-
