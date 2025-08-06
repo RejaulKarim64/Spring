@@ -3,6 +3,7 @@ package com.emranhss.project.service;
 import com.emranhss.project.entity.JobSeeker;
 import com.emranhss.project.entity.User;
 import com.emranhss.project.repository.JobSeekerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,8 @@ public class JobSeekerService {
         jobSeekerRepository.deleteById(id);
     }
 
+    public JobSeeker getProfileByUserId(int userId){
+        return jobSeekerRepository.findByUserId(userId)
+                .orElseThrow( ()->new RuntimeException("JobSeeker Not Found."));
+    }
 }

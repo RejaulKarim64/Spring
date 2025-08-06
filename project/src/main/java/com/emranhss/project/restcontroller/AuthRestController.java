@@ -1,6 +1,5 @@
 package com.emranhss.project.restcontroller;
 
-
 import com.emranhss.project.dto.AuthenticationResponse;
 import com.emranhss.project.entity.User;
 import com.emranhss.project.repository.ITokenRepository;
@@ -19,15 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/user/")
-@CrossOrigin("*")
-public class UserRestController {
+@RequestMapping("/auth/")
+public class AuthRestController {
 
     @Autowired
     private AuthService authService;
-
     @Autowired
-    private ITokenRepository tokenRepository;
+    private  ITokenRepository tokenRepository;
 
     @PostMapping
     public ResponseEntity<Map<String, String>> saveUser(
@@ -90,7 +87,4 @@ public class UserRestController {
         });
         return ResponseEntity.ok("Logged out successfully");
     }
-
-
 }
-

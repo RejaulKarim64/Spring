@@ -38,7 +38,7 @@ public class SecurityConfig {
                         req.requestMatchers("/api/user/", "/images/**", "/api/jobseeker/**","/api/user/active/**", "/api/user/login")
                                 .permitAll()
                                 .requestMatchers("/api/user/all")
-                                .hasAuthority("JOBSEEKER")
+                                .hasRole("JOBSEEKER")
                                 .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)
