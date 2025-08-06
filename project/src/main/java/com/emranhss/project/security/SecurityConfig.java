@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/user/", "/images/**", "/api/jobseeker/**","/api/user/active/**", "/api/user/login")
                                 .permitAll()
-                                .requestMatchers("/api/user/all")
+                                .requestMatchers("/api/user/all","/api/jobseeker/**")
                                 .hasRole("JOBSEEKER")
                                 .anyRequest().authenticated()
                 )

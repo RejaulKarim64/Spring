@@ -39,6 +39,9 @@ export class Login {
       next: (response) => {
         this.successMessage = 'Login successful!';
         this.errorMessage = null;
+        console.log('Login successful:', response);
+        console.log('User message:', response.message);
+        localStorage.setItem('authToken', response.token);
         this.router.navigate(['/jobsekpro']); // Redirect to home or another route after login
       },
       error: (err) => {
