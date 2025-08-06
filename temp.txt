@@ -1,3 +1,18 @@
 JiAmjPqMliUr809ggMCBj9cuAEOinjslBUQH7etnqQRpnKJgEz avast
 
 jwt.io
+
+{
+    "name": "Atik Rahman",
+    "email": "atiqurrahman@gmail.com",
+    "phone": "01234567890",
+    "password": "12345"
+}
+{
+  "name": "Atik Rahman",
+  "email": "atiqurrahman@gmail.com",
+  "phone": "01234567890",
+  "gender": "Male",
+  "address": "123 Main Street, Dhaka, Bangladesh",
+  "dateOfBirth": "1989-08-19"  
+}
