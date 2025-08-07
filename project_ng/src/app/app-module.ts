@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { JobseekerProfile } from './components/pages/jobseeker/jobseeker-profile/jobseeker-profile';
 import { Login } from './components/auth/login/login';
+import { Logout } from './components/auth/logout/logout';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { Login } from './components/auth/login/login';
     AddJobseeker,
     AllUser,
     JobseekerProfile,
-    Login
+    Login,
+    Logout
   ],
   imports: [
     BrowserModule,

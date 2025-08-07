@@ -65,7 +65,7 @@ public class AuthRestController {
         return ResponseEntity.ok(authService.authenticate(request));
 
     }
-
+//    http://localhost:8085/api/auth/active/id (for Active Account)
     @GetMapping("active/{id}")
     public ResponseEntity<String> activeUser(@PathVariable("id") int id) {
         String response = authService.activeUser(id);

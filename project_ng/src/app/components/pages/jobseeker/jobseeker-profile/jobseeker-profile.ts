@@ -27,9 +27,11 @@ export class JobseekerProfile {
   };
 
   constructor(
+    private authService : AuthService,
     private jobSeekerService: JobSeekerService, 
     private cdr: ChangeDetectorRef,
-    private educationService: EducationService
+    private educationService: EducationService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +68,11 @@ export class JobseekerProfile {
         console.error('Failed to load profile', err);
       }
     });
+  }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['login']);
+
   }
 
 
