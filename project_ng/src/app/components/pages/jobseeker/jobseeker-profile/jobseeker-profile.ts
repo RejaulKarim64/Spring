@@ -36,24 +36,24 @@ export class JobseekerProfile {
 
   ngOnInit(): void {
     this.getProfile();
-    // this.loadEducations();
+    this.loadEducations();
 
   }
 
 
-  // loadEducations(): void {
-  //   this.educationService.getEducations().subscribe({
-  //     next: (data) => {
-  //       this.educations = data;
+  loadEducations(): void {
+    this.educationService.getEducations().subscribe({
+      next: (data) => {
+        this.educations = data;
         
-  //       this.cdr.markForCheck();
+        this.cdr.markForCheck();
        
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to load educations', err);
-  //     }
-  //   });
-  // }
+      },
+      error: (err) => {
+        console.error('Failed to load educations', err);
+      }
+    });
+  }
 
   getProfile() {
 
@@ -76,19 +76,19 @@ export class JobseekerProfile {
   }
 
 
-  // addEducation(): void {
-  //   this.educationService.addEducation(this.newEducation).subscribe({
-  //     next: (addedEdu: any) => {
-  //       if (!this.jobSeeker.educations) {
-  //         this.jobSeeker.educations = [];
-  //       }
-  //       this.jobSeeker.educations.push(addedEdu);  // Update UI
-  //       this.newEducation = { level: '', institute: '', result: '', year: '' };  // Reset form
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to add education', err);
-  //     }
-  //   });
-  // }
+  addEducation(): void {
+    this.educationService.addEducation(this.newEducation).subscribe({
+      next: (addedEdu: any) => {
+        if (!this.jobSeeker.educations) {
+          this.jobSeeker.educations = [];
+        }
+        this.jobSeeker.educations.push(addedEdu);  // Update UI
+        this.newEducation = { level: '', institute: '', result: '', year: '' };  // Reset form
+      },
+      error: (err) => {
+        console.error('Failed to add education', err);
+      }
+    });
+  }
 
 }
