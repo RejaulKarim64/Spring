@@ -1,14 +1,22 @@
-<div *ngIf="jobSeeker" class="container py-5">
-  <div class="" style="float: right;">
+@if (jobSeeker) {
+<div class="container py-5">
+  <!-- Logout Button -->
+  <div style="float: right;">
     <button class="btn btn-success my-4 mx-5">
-            <a href="logout" style="text-decoration: none; color: #000;">Logout</a>
-        </button>
+      <a href="logout" style="text-decoration: none; color: #000;">Logout</a>
+    </button>
+    <br>
+    <button class="btn btn-success my-4 mx-5">
+      <a href="add-jobseeker" style="text-decoration: none; color: #000;">add-jobseeker</a>
+    </button>
   </div>
+
+  <!-- Job Seeker Profile -->
   <div class="card p-4">
     <div class="row align-items-center">
       <div class="col-md-3 text-center">
-        <img [src]="'http://localhost:8085/images/jobSeeker/'+jobSeeker.photo" alt="Profile Image" height="150"
-          width="150" class="profile-img mb-3">
+        <img [src]="'http://localhost:8085/images/jobSeeker/' + jobSeeker.photo" alt="Profile Image" height="150"
+          width="150" class="profile-img mb-3" />
         <h4 class="mb-0">{{ jobSeeker.name }}</h4>
         <p class="text-muted">{{ jobSeeker.gender }}</p>
       </div>
@@ -17,47 +25,53 @@
           <div class="col-md-6"><strong>Email:</strong> {{ jobSeeker.email }}</div>
           <div class="col-md-6"><strong>Phone:</strong> {{ jobSeeker.phone }}</div>
           <div class="col-md-6"><strong>Address:</strong> {{ jobSeeker.address }}</div>
-          <div class="col-md-6"><strong>Date of Birth:</strong>{{jobSeeker.dateOfBirth}} </div>
+          <div class="col-md-6"><strong>Date of Birth:</strong> {{ jobSeeker.dateOfBirth }}</div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Add Education Form -->
   <div class="card p-4 mt-4">
     <h5>Add New Education</h5>
-    <form (ngSubmit)="addEducation()">
+    <form (ngSubmit)="addEducation()" #eduForm="ngForm">
       <div class="row mb-2">
         <div class="col-md-6">
           <label>Level</label>
-          <input type="text" [(ngModel)]="newEducation.level" name="level" class="form-control" required>
+          <input type="text" [(ngModel)]="newEducation.level" name="level" class="form-control" required />
         </div>
         <div class="col-md-6">
           <label>Institute</label>
-          <input type="text" [(ngModel)]="newEducation.institute" name="institute" class="form-control" required>
+          <input type="text" [(ngModel)]="newEducation.institute" name="institute" class="form-control" required />
         </div>
         <div class="col-md-6">
           <label>Result</label>
-          <input type="text" [(ngModel)]="newEducation.result" name="result" class="form-control" required>
+          <input type="text" [(ngModel)]="newEducation.result" name="result" class="form-control" required />
         </div>
         <div class="col-md-6">
           <label>Year</label>
-          <input type="text" [(ngModel)]="newEducation.year" name="year" class="form-control" required>
+          <input type="text" [(ngModel)]="newEducation.year" name="year" class="form-control" required />
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Add Education</button>
     </form>
   </div>
 
-  <div *@ngIf="educations.length > 0" class="card p-4 mt-4">
+  <!-- Education List -->
+  @if (educations.length > 0) {
+  <div class="card p-4 mt-4">
     <h5>Educations</h5>
-    <div *@ngFor="let edu of educations" class="border-bottom py-2">
+
+    @for (edu of educations; track $index) {
+    <div class="border-bottom py-2">
       <div><strong>Level:</strong> {{ edu.level }}</div>
       <div><strong>Institute:</strong> {{ edu.institute }}</div>
       <div><strong>Board:</strong> {{ edu.board }}</div>
       <div><strong>Result:</strong> {{ edu.result }}</div>
       <div><strong>Year:</strong> {{ edu.year }}</div>
     </div>
+    }
   </div>
-
-
+  }
 </div>
+}

@@ -45,8 +45,8 @@ export class JobseekerProfile {
     this.educationService.getEducations().subscribe({
       next: (data) => {
         this.educations = data;
-        
         this.cdr.markForCheck();
+        console.log(data);
        
       },
       error: (err) => {

@@ -41,7 +41,7 @@ export class EducationService {
       }
     }
 
-    return this.http.get<Education[]>(this.apiUrl + 'all', { headers });
+    return this.http.get<Education[]>(this.apiUrl + "all", { headers });
   }
 
 }

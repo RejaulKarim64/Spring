@@ -2,28 +2,51 @@
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
       <h2 class="text-center mb-4">Login</h2>
+
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
           <input id="email" type="email" class="form-control" formControlName="email" />
-          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-            <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
-            <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email address.</small>
-          </div>
+          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+            <div class="text-danger">
+              @if (loginForm.get('email')?.errors?.['required']) {
+                <small>Email is required.</small>
+              }
+              @if (loginForm.get('email')?.errors?.['email']) {
+                <small>Invalid email address.</small>
+              }
+            </div>
+          }
         </div>
+
+        <!-- Password Field -->
         <div class="mb-3">
           <label for="password" class="form-label">Password:</label>
           <input id="password" type="password" class="form-control" formControlName="password" />
-          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
-            <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
-          </div>
+          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+            <div class="text-danger">
+              @if (loginForm.get('password')?.errors?.['required']) {
+                <small>Password is required.</small>
+              }
+            </div>
+          }
         </div>
+
+        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
 
-        <p class="my-5">donot have a account? <a href="add-jobseeker" style="text-decoration: none;">Register</a></p>
+        <!-- Register Link -->
+        <p class="my-5">Don't have an account? <a routerLink="/add-jobseeker" style="text-decoration: none;">Register</a></p>
       </form>
-      <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-      <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+
+      <!-- Feedback Messages -->
+      @if (errorMessage) {
+        <div class="alert alert-danger mt-3">{{ errorMessage }}</div>
+      }
+      @if (successMessage) {
+        <div class="alert alert-success mt-3">{{ successMessage }}</div>
+      }
     </div>
   </div>
 </div>
