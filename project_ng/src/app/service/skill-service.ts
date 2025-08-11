@@ -1,37 +1,24 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Skill } from '../model/skill.model';
+import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { Education } from '../model/education';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EducationService {
+export class SkillService {
+  
+  private baseUrl = environment.apiUrl + '/skill/';
 
-
-  private apiUrl = environment.apiUrl + '/education/';
-
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {}
 
-  addEducation(education: any): Observable<any> {
-
-    let headers = new HttpHeaders();
-
-    if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        headers = headers.set('Authorization', 'Bearer ' + token);
-      }
-    }
-    return this.http.post(this.apiUrl + "add", education, { headers });
-  }
-
-
-  getEducations(): Observable<Education[]> {
+  // Add new skill
+  addSkill(data: Skill): Observable<Skill> {
     let headers = new HttpHeaders();
 
     if (isPlatformBrowser(this.platformId)) {
@@ -41,12 +28,25 @@ export class EducationService {
       }
     }
 
-    return this.http.get<Education[]>(this.apiUrl + "all", { headers });
-  }
-  deleteEducation(id: number): Observable<void> {
-
-    return this.http.delete<void>(this.apiUrl + id);
+    return this.http.post<Skill>(`${this.baseUrl}add`, data, { headers });
   }
 
+  // Get all skills for logged-in user
+  getAllSkills(): Observable<Skill[]> {
+    let headers = new HttpHeaders();
 
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get<Skill[]>(`${this.baseUrl}all`, { headers });
+  }
+
+  // Delete a skill by ID
+  deleteSkill(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}${id}`);
+  }
 }

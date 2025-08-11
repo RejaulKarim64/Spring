@@ -7,6 +7,10 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
+npm install jspdf --save
+npm i jspdf-html2canvas
+npm i bootstrap@5.3.7
+$ npm i --save @fortawesome/fontawesome-free
 ng serve
 ```
 

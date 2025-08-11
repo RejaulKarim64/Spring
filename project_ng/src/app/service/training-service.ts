@@ -1,37 +1,23 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Training } from '../model/training.model';
+import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { Education } from '../model/education';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EducationService {
+export class TrainingService {
+  
+  private baseUrl = environment.apiUrl + '/training/';
 
-
-  private apiUrl = environment.apiUrl + '/education/';
-
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {}
 
-  addEducation(education: any): Observable<any> {
-
-    let headers = new HttpHeaders();
-
-    if (isPlatformBrowser(this.platformId)) {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        headers = headers.set('Authorization', 'Bearer ' + token);
-      }
-    }
-    return this.http.post(this.apiUrl + "add", education, { headers });
-  }
-
-
-  getEducations(): Observable<Education[]> {
+  addTraining(data: Training): Observable<Training> {
     let headers = new HttpHeaders();
 
     if (isPlatformBrowser(this.platformId)) {
@@ -41,12 +27,23 @@ export class EducationService {
       }
     }
 
-    return this.http.get<Education[]>(this.apiUrl + "all", { headers });
-  }
-  deleteEducation(id: number): Observable<void> {
-
-    return this.http.delete<void>(this.apiUrl + id);
+    return this.http.post<Training>(`${this.baseUrl}add`, data, { headers });
   }
 
+  getAllTrainings(): Observable<Training[]> {
+    let headers = new HttpHeaders();
 
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get<Training[]>(`${this.baseUrl}all`, { headers });
+  }
+
+  deleteTraining(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}${id}`);
+  }
 }
