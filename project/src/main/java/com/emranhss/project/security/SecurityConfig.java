@@ -39,6 +39,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/api/user/all","/api/jobseeker/**","/api/auth/logout","/api/education/all")
                                 .hasRole("JOBSEEKER")
+                                .requestMatchers("/api/jobseeker/")
+                                .hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)
