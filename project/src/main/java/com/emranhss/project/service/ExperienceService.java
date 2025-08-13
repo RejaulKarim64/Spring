@@ -19,7 +19,7 @@ public class ExperienceService {
     @Autowired
     private JobSeekerRepository jobSeekerRepo;
 
-    public List<ExperienceDTO> findByJobSeekerId(Long jobSeekerId) {
+    public List<ExperienceDTO> getByJobSeekerId(Long jobSeekerId) {
 
         List<Experience> experiences = experienceRepo.findByJobSeekerId(jobSeekerId);
 
@@ -35,5 +35,9 @@ public class ExperienceService {
         experience.setJobSeeker(jobSeeker);
         return experienceRepo.save(experience);
 
+    }
+
+    public void delete(Long id) {
+        experienceRepo.deleteById(id);
     }
 }

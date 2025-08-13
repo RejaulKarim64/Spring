@@ -97,15 +97,45 @@ export class AuthService {
 
   }
 
+logout(): void {
+  if (this.isBrowser()) {
+    const token = localStorage.getItem('authToken');
+    console.log("Token= "+token);
+    
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
 
-  logout(): void {
-    if (this.isBrowser()) {
-      localStorage.removeItem('userRole');
-      localStorage.removeItem('authToken');
-      this.userRoleSubject.next(null);
+      this.http.post(this.baseUrl +'logout', {}, { headers }).subscribe({
+        next: () => {
+          // On successful logout
+          this.clearSession();
+          console.log("On successful logout ");
+        },
+        error: (err) => {
+          // On error, still clear session to avoid stale state
+          console.error('Logout API error:', err);
+          this.clearSession();
+          console.log("On error, still clear session to avoid stale state ");
+        }
+      });
+    } else {
+      // No token, just clear session
+      this.clearSession();
+      console.log("No token, just clear session ");
     }
+  } else {
     this.router.navigate(['/login']);
   }
+}
+
+private clearSession(): void {
+  localStorage.removeItem('userRole');
+  localStorage.removeItem('authToken');
+  this.userRoleSubject.next(null);
+  this.router.navigate(['/login']);
+}
 
 
   hasRole(roles: string[]): boolean {
