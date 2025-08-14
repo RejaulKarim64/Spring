@@ -35,9 +35,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/api/user/", "/images/**", "/api/jobseeker/**","/api/auth/active/**", "/api/auth/login","/api/education/**")
+                        req.requestMatchers("/api/user/", "/images/**", "/api/jobseeker/", "/api/auth/active/**",
+                                        "/api/auth/login", "/api/education/**", "/api/policestation/**", "/api/skill/**",
+                                        "/api/countries/", "/api/countries/**", "/api/division/", "/api/division/**",
+                                        "/api/district/", "/api/district/**", "/api/policestation/")
                                 .permitAll()
-                                .requestMatchers("/api/user/all","/api/jobseeker/**","/api/auth/logout","/api/education/all")
+                                .requestMatchers("/api/user/all", "/api/jobseeker/**", "/api/auth/logout", "/api/education/**",
+                                        "/api/experience/**", "/api/hobby/**", "/api/training/**", "/api/skill/add",
+                                        "/api/extracurricular/**")
                                 .hasRole("JOBSEEKER")
                                 .requestMatchers("/api/jobseeker/")
                                 .hasRole("ADMIN")
@@ -50,6 +55,8 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
+    // "/api/jobseeker/profile",
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserService userService) {

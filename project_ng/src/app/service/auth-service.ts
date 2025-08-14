@@ -10,7 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthService {
- 
+
 
   private baseUrl = environment.apiUrl + '/auth/';
 
@@ -41,9 +41,7 @@ export class AuthService {
             this.userRoleSubject.next(decodeToken.role);
           }
           return response;
-
         }
-
       )
     );
   }
@@ -58,7 +56,6 @@ export class AuthService {
 
     const payload = token.split('.')[1];
     return JSON.parse(atob(payload));
-
   }
 
   getToken(): string | null {
@@ -67,7 +64,6 @@ export class AuthService {
       return localStorage.getItem('authToken');
     }
     return null;
-
   }
 
 
@@ -77,7 +73,6 @@ export class AuthService {
       return localStorage.getItem('userRole');
     }
     return null;
-
   }
 
   isTokenExpired(token: string): boolean {
@@ -94,59 +89,52 @@ export class AuthService {
     }
     this.logout();
     return false;
-
   }
 
-logout(): void {
-  if (this.isBrowser()) {
-    const token = localStorage.getItem('authToken');
-    console.log("Token= "+token);
-    
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
+  logout(): void {
+    if (this.isBrowser()) {
+      const token = localStorage.getItem('authToken');
 
-      this.http.post(this.baseUrl +'logout', {}, { headers }).subscribe({
-        next: () => {
-          // On successful logout
-          this.clearSession();
-          console.log("On successful logout ");
-        },
-        error: (err) => {
-          // On error, still clear session to avoid stale state
-          console.error('Logout API error:', err);
-          this.clearSession();
-          console.log("On error, still clear session to avoid stale state ");
-        }
-      });
+      if (token) {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+        });
+
+        this.http.post(this.baseUrl + 'logout', {}, {
+          headers,
+          responseType: 'text'
+        }).subscribe({
+          next: () => {
+            this.clearSession();
+          },
+          error: (err) => {
+            this.clearSession();
+          }
+        });
+      } else {
+        this.clearSession();
+      }
     } else {
-      // No token, just clear session
-      this.clearSession();
-      console.log("No token, just clear session ");
+      this.router.navigate(['/login']);
     }
-  } else {
+  }
+
+  private clearSession(): void {
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('authToken');
+    this.userRoleSubject.next(null);
     this.router.navigate(['/login']);
   }
-}
-
-private clearSession(): void {
-  localStorage.removeItem('userRole');
-  localStorage.removeItem('authToken');
-  this.userRoleSubject.next(null);
-  this.router.navigate(['/login']);
-}
 
 
   hasRole(roles: string[]): boolean {
 
     const userRole = this.getUserRole();
     return userRole ? roles.includes(userRole) : false;
-
   }
 
-   isJobSeeker(): boolean {
+  isJobSeeker(): boolean {
     return this.getUserRole() === 'JOBSEEKER';
   }
-
+  
 }
